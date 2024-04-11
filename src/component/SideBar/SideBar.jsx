@@ -65,6 +65,7 @@ const SideBar = () => {
           borderRadius={6}
           _hover={{
             bg: "whiteAlpha.200",
+            fontWeight: "bold",
           }}
           w={10}
           cursor={"pointer"}
