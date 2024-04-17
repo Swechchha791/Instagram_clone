@@ -38,10 +38,26 @@ const FeedPosts = () => {
 
       {!isLoading && (
         <>
-          <FeedPost img="/img4.jpeg" username="DP" avatar="img4.jpeg" />
-          <FeedPost img="/img1.jpeg" username="Swechchha" avatar="img1.jpeg" />
-          <FeedPost img="/img2.jpeg" username="Ishu" avatar="img2.jpeg" />
-          <FeedPost img="/img3.jpeg" username="Apeksha" avatar="img3.jpeg" />
+          <FeedPost
+            img="/img4.jpeg"
+            username="Web_developer_"
+            avatar="img4.jpeg"
+          />
+          <FeedPost
+            img="/img1.jpeg"
+            username="Programmer_"
+            avatar="img1.jpeg"
+          />
+          <FeedPost
+            img="/img2.jpeg"
+            username="MERN_developer_"
+            avatar="img2.jpeg"
+          />
+          <FeedPost
+            img="/img3.jpeg"
+            username="Java_developer_"
+            avatar="img3.jpeg"
+          />
         </>
       )}
     </Container>
