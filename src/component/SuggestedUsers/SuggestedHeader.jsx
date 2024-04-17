@@ -1,4 +1,4 @@
-import { Flex, Button, Text, Avatar, Grid } from "@chakra-ui/react";
+import { Flex, Text, Avatar, Grid } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 
 const SuggestedHeader = () => {
