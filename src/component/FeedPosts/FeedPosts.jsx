@@ -35,7 +35,6 @@ const FeedPosts = () => {
             </Skeleton>
           </VStack>
         ))}
-
       {!isLoading && (
         <>
           <FeedPost img="/img4.jpeg" username="DP" avatar="img4.jpeg" />
