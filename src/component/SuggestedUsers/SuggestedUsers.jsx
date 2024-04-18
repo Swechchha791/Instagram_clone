@@ -1,5 +1,7 @@
-import { Flex, VStack, Text } from "@chakra-ui/react";
+import { Flex, VStack, Text, Box } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 import SuggestedHeader from "./SuggestedHeader";
+import SuggestedUser from "./SuggestedUser";
 
 const SuggestedUsers = () => {
   return (
@@ -21,6 +23,34 @@ const SuggestedUsers = () => {
         </Text>
       </Flex>
       {/* )} */}
+
+      <SuggestedUser
+        name="Coder"
+        followers={1200}
+        avatar={"/profilePic.jpeg"}
+      />
+      <SuggestedUser
+        name="UI/UX designer"
+        followers={1050}
+        avatar={"/profilePic2.jpeg"}
+      />
+      <SuggestedUser
+        name="App_developer"
+        followers={1575}
+        avatar={"/profilePic3.jpeg"}
+      />
+
+      <Box fontSize={12} color={"gray.500"} mt={5} alignSelf={"start"}>
+        © 2023 Built By{" "}
+        <Link
+          href="https://www.youtube.com/@asaprogrammer_"
+          target="_blank"
+          color="blue.500"
+          fontSize={14}
+        >
+          Web_developer
+        </Link>
+      </Box>
 
       {/* {suggestedUsers.map((user) => (
         <SuggestedUser user={user} key={user.id} />
