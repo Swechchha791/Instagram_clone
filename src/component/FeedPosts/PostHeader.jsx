@@ -11,7 +11,6 @@ const PostHeader = ({ username, avatar }) => {
       <Flex justifyContent={"center"} alignItems={"center"} gap={2}>
         <Avatar src={avatar} alt="User profile pic" size={"sm"} />
         <Flex fontSize={12} fontWeight={"bold"} gap={2}>
-          Web-developer
           {username}
           <Box color={"gray.500"}>● 1w</Box>
         </Flex>

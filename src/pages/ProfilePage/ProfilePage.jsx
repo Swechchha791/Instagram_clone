@@ -1,4 +1,7 @@
 import { Container, Flex } from "@chakra-ui/react";
+import ProfileHeader from "../../component/Profile/ProfileHeader";
+import ProfileTabs from "../../component/Profile/ProfileTabs";
+import ProfilePosts from "../../component/Profile/ProfilePosts";
 
 const ProfilePage = () => {
   return (
@@ -11,6 +14,7 @@ const ProfilePage = () => {
         mx={"auto"}
         flexDirection={"column"}
       >
+        <ProfileHeader />
         {/* {!isLoading && userProfile && <ProfileHeader />}
         {isLoading && <ProfileHeaderSkeleton />} */}
       </Flex>
@@ -22,11 +26,13 @@ const ProfilePage = () => {
         borderColor={"whiteAlpha.300"}
         direction={"column"}
       >
-        {/* <ProfileTabs />
-        <ProfilePosts /> */}
+        <ProfileTabs />
+        <ProfilePosts />
       </Flex>
     </Container>
   );
 };
 
 export default ProfilePage;
+
+// git commit -a --allow-empty-message -m ''
