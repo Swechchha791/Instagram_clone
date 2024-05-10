@@ -21,7 +21,7 @@ const ProfileHeader = () => {
         alignSelf={"flex-start"}
         mx={"auto"}
       >
-        <Avatar src="/profilepic.jpg" alt="As a programmer logo" />
+        <Avatar src="/profilepic.jpg" alt="profile_logo" />
       </AvatarGroup>
 
       <VStack alignItems={"start"} gap={2} mx={"auto"} flex={1}>

@@ -55,14 +55,14 @@ const ProfilePost = ({ img }) => {
             <Flex>
               <AiFillHeart size={20} />
               <Text fontWeight={"bold"} ml={2}>
-                58{/* {post.likes.length} */}
+                58
               </Text>
             </Flex>
 
             <Flex>
               <FaComment size={20} />
               <Text fontWeight={"bold"} ml={2}>
-                20{/* {post.comments.length} */}
+                20
               </Text>
             </Flex>
           </Flex>
