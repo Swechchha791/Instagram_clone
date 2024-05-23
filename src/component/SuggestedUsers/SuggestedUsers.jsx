@@ -24,19 +24,15 @@ const SuggestedUsers = () => {
       </Flex>
       {/* )} */}
 
-      <SuggestedUser
-        name="Coder"
-        followers={1200}
-        avatar={"/profilePic.jpeg"}
-      />
+      <SuggestedUser name="Coder" followers={120} avatar={"/profilePic.jpeg"} />
       <SuggestedUser
         name="UI/UX designer"
-        followers={1050}
+        followers={105}
         avatar={"/profilePic2.jpeg"}
       />
       <SuggestedUser
         name="App_developer"
-        followers={1575}
+        followers={175}
         avatar={"/profilePic3.jpeg"}
       />
 

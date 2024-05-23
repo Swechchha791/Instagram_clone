@@ -1,48 +1,46 @@
-import { Flex, Text, Avatar, Grid } from "@chakra-ui/react";
+import React from "react";
+import { Flex, Text, Avatar, Button } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
+import useLogout from "../../hooks/useLogout";
+// import { useAuthState } from "react-firebase-hooks/auth";
+// import { auth } from "../../firebase/firebase";
+import useAuthStore from "../../store/authStore";
 
 const SuggestedHeader = () => {
+  const { logout, isLoggingOut } = useLogout();
+  // const [authUser] = useAuthState(auth);
+  const authUser = useAuthStore((state) => state.user);
+  if (!authUser) return null;
+
   return (
     <Flex justifyContent={"space-between"} alignItems={"center"} w={"full"}>
       <Flex alignItems={"center"} gap={2}>
-        <Avatar name="Web developer" size={"lg"} src="/profilepic.jpg" />
-        <Text fontSize={12} fontWeight={"bold"}>
-          Web_developer_
-        </Text>
-        {/* <Link to={`${authUser.username}`}>
-          <Avatar size={"lg"} src={authUser.profilePicURL} />
-        </Link>
         <Link to={`${authUser.username}`}>
+          <Avatar
+            name={authUser.username || ""}
+            size={"lg"}
+            src={authUser.profilePicURL || ""}
+          />
+        </Link>
+        <Link to={`/${authUser.username}`}>
           <Text fontSize={12} fontWeight={"bold"}>
-            {authUser.username}
+            {authUser.username || ""}
           </Text>
-        </Link> */}
+        </Link>
       </Flex>
-      <Link
+      <Button
         size={"xs"}
-        to={"/auth"}
-        background={"transparent"}
-        _hover={{ background: "transparent" }}
         fontSize={14}
         fontWeight={"medium"}
         color={"blue.400"}
-        cursor={"pointer"}
-      >
-        Log out
-      </Link>
-      {/* <Button
-        size={"xs"}
-        background={"transparent"}
-        _hover={{ background: "transparent" }}
-        fontSize={14}
-        fontWeight={"medium"}
-        color={"blue.400"}
-        onClick={handleLogout}
+        onClick={logout}
         isLoading={isLoggingOut}
         cursor={"pointer"}
+        _hover={{ background: "transparent" }}
+        background={"transparent"}
       >
         Log out
-      </Button> */}
+      </Button>
     </Flex>
   );
 };

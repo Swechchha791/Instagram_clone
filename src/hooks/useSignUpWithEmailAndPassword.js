@@ -56,7 +56,7 @@ const useSignUpWithEmailAndPassword = () => {
           username: inputs.username,
           fullName: inputs.fullName,
           bio: "",
-          profilePicURL: "",
+          profilePicURL: "/profilePic.jpeg",
           followers: [],
           following: [],
           posts: [],

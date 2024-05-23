@@ -30,14 +30,14 @@ const AuthForm = () => {
             <Box flex={2} h={"1px"} bg={"gray.400"} />
           </Flex>
 
-          <GoogleAuth />
+          <GoogleAuth prefix={isLogin ? "Log in" : "Sign up"} />
         </VStack>
       </Box>
 
       <Box border={"1px solid gray"} borderRadius={4} padding={5}>
         <Flex alignItems={"center"} justifyContent={"center"}>
           <Box mx={2} fontSize={14}>
-            {isLogin ? "Don't have an account?" : "Already have an account"}
+            {isLogin ? "Don't have an account?" : "Already have an account?"}
           </Box>
           <Box
             onClick={() => setIsLogin(!isLogin)}
