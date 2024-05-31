@@ -2,8 +2,11 @@ import { Flex, VStack, Text, Box } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import SuggestedHeader from "./SuggestedHeader";
 import SuggestedUser from "./SuggestedUser";
+import useGetSuggestedUsers from "../../hooks/useGetSuggestedUsers";
 
 const SuggestedUsers = () => {
+  const { isLoading, suggestedUsers } = useGetSuggestedUsers();
+
   return (
     <VStack py={8} px={6} gap={4}>
       <SuggestedHeader />
@@ -24,17 +27,9 @@ const SuggestedUsers = () => {
       </Flex>
       {/* )} */}
 
-      <SuggestedUser name="Coder" followers={120} avatar={"/profilePic.jpeg"} />
-      <SuggestedUser
-        name="UI/UX designer"
-        followers={105}
-        avatar={"/profilePic2.jpeg"}
-      />
-      <SuggestedUser
-        name="App_developer"
-        followers={175}
-        avatar={"/profilePic3.jpeg"}
-      />
+      {suggestedUsers.map((user) => (
+        <SuggestedUser user={user} key={user.id} />
+      ))}
 
       <Box fontSize={12} color={"gray.500"} mt={5} alignSelf={"start"}>
         © 2024 Built By{" "}
@@ -42,22 +37,6 @@ const SuggestedUsers = () => {
           Swechchha
         </Link>
       </Box>
-
-      {/* {suggestedUsers.map((user) => (
-        <SuggestedUser user={user} key={user.id} />
-      ))} */}
-
-      {/* <Box fontSize={12} color={"gray.500"} mt={5} alignSelf={"start"}>
-        © 2024 Built By{" "}
-        <Link
-          href="#"
-          target="_blank"
-          color="blue.500"
-          fontSize={14}
-        >
-          Swechchha
-        </Link>
-      </Box> */}
     </VStack>
   );
 };
