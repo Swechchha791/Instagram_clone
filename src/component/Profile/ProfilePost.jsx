@@ -1,4 +1,7 @@
-import React from "react";
+import { useState } from "react";
+import { deleteObject, ref, getMetadata } from "firebase/storage";
+import { firestore, storage } from "../../firebase/firebase";
+import { arrayRemove, deleteDoc, doc, updateDoc } from "firebase/firestore";
 import {
   Avatar,
   Divider,
@@ -20,14 +23,68 @@ import { AiFillHeart } from "react-icons/ai";
 import { FaComment } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import Comment from "../Comment/Comment";
+import useAuthStore from "../../store/authStore";
+import usePostStore from "../../store/postStore";
 import PostFooter from "../FeedPosts/PostFooter";
+import useUserProfileStore from "../../store/userProfileStore";
+import useShowToast from "../../hooks/useShowToast";
+import Caption from "../Comment/Caption";
 
-const ProfilePost = ({ img }) => {
+const ProfilePost = ({ post }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [isDeleting, setIsDeleting] = useState(false);
+  const showToast = useShowToast();
+  const authUser = useAuthStore((state) => state.user);
+  const userProfile = useUserProfileStore((state) => state.userProfile);
+  const deletePost = usePostStore((state) => state.deletePost);
+  const deleteProfilePost = useUserProfileStore((state) => state.deletePost);
+
+  const handleDeletePost = async () => {
+    if (!window.confirm("Are you sure you want to delete this post?")) return;
+    if (isDeleting) return;
+
+    setIsDeleting(true);
+
+    try {
+      const imageRef = ref(storage, `posts/${post.id}`);
+
+      // Check if the image exists
+      try {
+        await getMetadata(imageRef);
+        await deleteObject(imageRef);
+      } catch (error) {
+        if (error.code === "storage/object-not-found") {
+          console.warn("Image does not exist, skipping deleteObject.");
+        } else {
+          throw error;
+        }
+      }
+
+      const userRef = doc(firestore, "users", authUser.uid);
+      await deleteDoc(doc(firestore, "posts", post.id));
+
+      await updateDoc(userRef, {
+        posts: arrayRemove(post.id),
+      });
+
+      deletePost(post.id);
+      deleteProfilePost(post.id);
+      showToast("Success", "Post deleted successfully", "success");
+    } catch (error) {
+      showToast("Error", error.message, "error");
+    } finally {
+      setIsDeleting(false);
+    }
+  };
+
+  if (!post || Object.keys(post).length === 0) {
+    return null; // No post data, render nothing
+  }
 
   return (
     <>
       <GridItem
+        key={post.id}
         cursor={"pointer"}
         overflow={"hidden"}
         borderRadius={4}
@@ -54,20 +111,20 @@ const ProfilePost = ({ img }) => {
             <Flex>
               <AiFillHeart size={20} />
               <Text fontWeight={"bold"} ml={2}>
-                58
+                {post.likes.length}
               </Text>
             </Flex>
 
             <Flex>
               <FaComment size={20} />
               <Text fontWeight={"bold"} ml={2}>
-                20
+                {post.comments.length}
               </Text>
             </Flex>
           </Flex>
         </Flex>
         <Image
-          src={img}
+          src={post.imageURL}
           alt="profile post"
           w={"100%"}
           h={"100%"}
@@ -104,7 +161,7 @@ const ProfilePost = ({ img }) => {
                 justifyContent={"center"}
                 alignItems={"center"}
               >
-                <Image src="/img1.jpeg" alt="profile post" w={"full"} />
+                <Image src={post.imageURL} alt="profile post" w={"full"} />
               </Box>
               <Flex
                 flex={1}
@@ -115,12 +172,12 @@ const ProfilePost = ({ img }) => {
                 <Flex alignItems={"center"} justifyContent={"space-between"}>
                   <Flex alignItems={"center"} gap={4}>
                     <Avatar
-                      src="/profilepic.jpg"
+                      src={userProfile.profilePicURL}
                       size={"sm"}
                       name="Web-developer"
                     />
                     <Text fontWeight={"bold"} fontSize={12}>
-                      {/* {userProfile.username} */} Web-developer
+                      {userProfile.username}
                     </Text>
                   </Flex>
                   <Button
@@ -129,8 +186,8 @@ const ProfilePost = ({ img }) => {
                     _hover={{ bg: "whiteAlpha.300", color: "red.600" }}
                     borderRadius={4}
                     p={1}
-                    // onClick={handleDeletePost}
-                    // isLoading={isDeleting}
+                    onClick={handleDeletePost}
+                    isLoading={isDeleting}
                   >
                     <MdDelete size={20} cursor="pointer" />
                   </Button>
@@ -143,48 +200,16 @@ const ProfilePost = ({ img }) => {
                   maxH={"350px"}
                   overflowY={"auto"}
                 >
-                  <Comment
-                    createdAt="4d ago"
-                    username="developer"
-                    profilePic="/profilepic.jpeg"
-                    text={"Amazing"}
-                  />
-                  <Comment
-                    createdAt="2d ago"
-                    username="Coder"
-                    profilePic="/profilePic.jpeg"
-                    text={"Nice view"}
-                  />
-                  <Comment
-                    createdAt="2d ago"
-                    username="UI/UX designer"
-                    profilePic="/profilePic2.jpeg"
-                    text={"Awesome"}
-                  />
-                  <Comment
-                    createdAt="1d ago"
-                    username="App_developer"
-                    profilePic="/profilePic3.jpeg"
-                    text={"Nice click"}
-                  />
-                  {/* Render comments if available */}
-                  {/* <Comment
-                    createdAt="id ago"
-                    username="Web-developer"
-                    profilePic="/profilepic.jpeg"
-                    text={"Dummy data"}
-                  /> */}
-                  {/* Render caption if available */}
-                  {/* {post.caption && <Caption post={post} />} */}
-                  {/* Render comments */}
-                  {/* {post.comments.map((comment) => (
-                    <Comment key={comment.id} comment={comment} />
-                  ))} */}
+                  {/* Caption */}
+                  {post.caption && <Caption post={post} />}
+                  {/* comments */}
+                  {post.comments.map((comment, index) => (
+                    <Comment key={comment.id || index} comment={comment} />
+                  ))}
                 </VStack>
                 <Divider my={4} bg={"gray.8000"} />
 
-                {/* Render post footer if available */}
-                <PostFooter isProfilepage={true} />
+                <PostFooter isProfilePage={true} post={post} />
               </Flex>
             </Flex>
           </ModalBody>
