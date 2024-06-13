@@ -8,7 +8,7 @@ import useLogout from "../../hooks/useLogout";
 import SidebarItems from "./SidebarItems";
 
 const SideBar = () => {
-  const { logout, isLoggingOut } = useLogout();
+  const { logoutUser, isLoggingOut } = useLogout();
 
   // const sidebarItems = [
   //   {
@@ -83,7 +83,7 @@ const SideBar = () => {
           display={{ base: "block", md: "none" }}
         >
           <Flex
-            onClick={logout}
+            onClick={logoutUser}
             alignItems={"center"}
             gap={4}
             _hover={{ bg: "whiteAlpha.400" }}

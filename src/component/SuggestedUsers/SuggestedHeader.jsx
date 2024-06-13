@@ -7,7 +7,7 @@ import useLogout from "../../hooks/useLogout";
 import useAuthStore from "../../store/authStore";
 
 const SuggestedHeader = () => {
-  const { logout, isLoggingOut } = useLogout();
+  const { logoutUser, isLoggingOut } = useLogout();
   // const [authUser] = useAuthState(auth);
   const authUser = useAuthStore((state) => state.user);
   if (!authUser) return null;
@@ -33,7 +33,7 @@ const SuggestedHeader = () => {
         fontSize={14}
         fontWeight={"medium"}
         color={"blue.400"}
-        onClick={logout}
+        onClick={logoutUser}
         isLoading={isLoggingOut}
         cursor={"pointer"}
         _hover={{ background: "transparent" }}
