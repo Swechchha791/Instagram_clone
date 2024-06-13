@@ -6,6 +6,7 @@ import {
   InputGroup,
   Input,
   Button,
+  useDisclosure,
   InputRightElement,
 } from "@chakra-ui/react";
 import {
@@ -16,19 +17,23 @@ import {
 import usePostComment from "../../hooks/usePostComment";
 import useAuthStore from "../../store/authStore";
 import useLikePost from "../../hooks/useLikePost";
+import CommentsModal from "../Comment/CommentsModal";
+import { timeAgo } from "../../utils/timeAgo";
 
-const PostFooter = ({ username, isProfilePage, post }) => {
+const PostFooter = ({ isProfilePage, post, creatorProfile }) => {
   // const [liked, setLiked] = useState(false);
   // const [likes, setLikes] = useState(1000);
-  const [comment, setComment] = useState(" ");
+  const [comment, setComment] = useState("");
   const commentRef = useRef(null);
   const authUser = useAuthStore((state) => state.user);
   const { isCommenting, handlePostComment } = usePostComment();
   const { isLiked, likes, handleLikePost } = useLikePost(post);
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleSubmitPostComment = async () => {
+    if (comment.trim() === "") return;
     await handlePostComment(post.id, comment);
-    setComment(" ");
+    setComment("");
   };
 
   // const handleLike = () => {
@@ -50,7 +55,7 @@ const PostFooter = ({ username, isProfilePage, post }) => {
           onClick={handleLikePost}
           transition={"0.2s ease-in-out"}
         >
-          {!isLiked ? <NotificationsLogo /> : <UnlikeLogo />}
+          {isLiked ? <UnlikeLogo /> : <NotificationsLogo />}
         </Box>
 
         <Box
@@ -67,16 +72,32 @@ const PostFooter = ({ username, isProfilePage, post }) => {
       </Text>
 
       {isProfilePage && (
+        <Text fontSize="12" color={"gray"}>
+          Posted {timeAgo(post.createdAt)}
+        </Text>
+      )}
+
+      {!isProfilePage && (
         <>
-          <Text fontWeight={700} fontSize={"sm"}>
-            {username}{" "}
+          <Text fontSize="sm" fontWeight={700}>
+            {creatorProfile?.username}{" "}
             <Text as="span" fontWeight={400}>
-              Feeling amazed
+              {post.caption}
             </Text>
           </Text>
-          <Text fontSize={"sm"} color={"gray"}>
-            View all 1,000 Comments
-          </Text>
+          {post.comments.length > 0 && (
+            <Text
+              fontSize="sm"
+              color={"gray"}
+              cursor={"pointer"}
+              onClick={onOpen}
+            >
+              View all {post.comments.length} comments
+            </Text>
+          )}
+          {isOpen ? (
+            <CommentsModal isOpen={isOpen} onClose={onClose} post={post} />
+          ) : null}
         </>
       )}
       {authUser && (

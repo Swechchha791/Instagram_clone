@@ -1,29 +1,24 @@
-import { useEffect, useState } from "react";
 import {
+  Box,
   Container,
   Flex,
-  Box,
-  VStack,
   Skeleton,
   SkeletonCircle,
+  Text,
+  VStack,
 } from "@chakra-ui/react";
 import FeedPost from "./FeedPost";
+import useGetFeedPosts from "../../hooks/useGetFeedPosts";
 
 const FeedPosts = () => {
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 2000);
-  }, []);
+  const { isLoading, posts } = useGetFeedPosts();
 
   return (
     <Container maxW={"container.sm"} py={10} px={2}>
       {isLoading &&
-        [0, 1, 2, 3].map((_, idx) => (
+        [0, 1, 2].map((_, idx) => (
           <VStack key={idx} gap={4} alignItems={"flex-start"} mb={10}>
-            <Flex gap={2}>
+            <Flex gap="2">
               <SkeletonCircle size="10" />
               <VStack gap={2} alignItems={"flex-start"}>
                 <Skeleton height="10px" w={"200px"} />
@@ -31,28 +26,20 @@ const FeedPosts = () => {
               </VStack>
             </Flex>
             <Skeleton w={"full"}>
-              <Box h={"500px"}>Content</Box>
+              <Box h={"400px"}>contents wrapped</Box>
             </Skeleton>
           </VStack>
         ))}
-      {!isLoading && (
+
+      {!isLoading &&
+        posts.length > 0 &&
+        posts.map((post) => <FeedPost key={post.id} post={post} />)}
+      {!isLoading && posts.length === 0 && (
         <>
-          <FeedPost
-            img="/img4.jpeg"
-            username="Web-developer"
-            avatar="img4.jpeg"
-          />
-          <FeedPost
-            img="/img1.jpeg"
-            username="Power-programmer"
-            avatar="img1.jpeg"
-          />
-          <FeedPost img="/img2.jpeg" username="Coder" avatar="img2.jpeg" />
-          <FeedPost
-            img="/img3.jpeg"
-            username="UI/UX-designer"
-            avatar="img3.jpeg"
-          />
+          <Text fontSize={"md"} color={"red.400"}>
+            It looks like you don't have virtual friends...🥺
+          </Text>
+          <Text color={"red.400"}>Go and be your own friend...😊</Text>
         </>
       )}
     </Container>

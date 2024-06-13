@@ -136,7 +136,7 @@ const ProfilePost = ({ post }) => {
         isOpen={isOpen}
         onClose={onClose}
         isCentered={true}
-        size={{ base: "3xl", md: "5xl" }}
+        size={{ base: "full", md: "5xl" }}
       >
         <ModalOverlay />
         <ModalContent
@@ -151,6 +151,7 @@ const ProfilePost = ({ post }) => {
               mx={"auto"}
               maxH={"90vh"}
               minH={"50vh"}
+              flexDirection={{ base: "column", md: "row" }}
             >
               <Box
                 borderRadius={4}
@@ -161,14 +162,16 @@ const ProfilePost = ({ post }) => {
                 justifyContent={"center"}
                 alignItems={"center"}
               >
-                <Image src={post.imageURL} alt="profile post" w={"full"} />
+                <Image
+                  src={post.imageURL}
+                  alt="profile post"
+                  w={"full"}
+                  h={{ base: "auto", md: "full" }}
+                  maxH={{ base: "60vh", md: "full" }}
+                  objectFit={"cover"}
+                />
               </Box>
-              <Flex
-                flex={1}
-                flexDir={"column"}
-                px={10}
-                display={{ base: "none", md: "flex" }}
-              >
+              <Flex flex={1} flexDir={"column"} px={10} pt={{ base: 4, md: 0 }}>
                 <Flex alignItems={"center"} justifyContent={"space-between"}>
                   <Flex alignItems={"center"} gap={4}>
                     <Avatar
