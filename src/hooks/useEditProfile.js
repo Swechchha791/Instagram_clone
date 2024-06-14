@@ -22,11 +22,12 @@ const useEditProfile = () => {
     const storageRef = ref(storage, `profilePics/${authUser.uid}`);
     const userDocRef = doc(firestore, "users", authUser.uid);
 
-    let URL = "";
+    let profilePicURL = authUser.profilePicURL;
+
     try {
       if (selectedFile) {
         await uploadString(storageRef, selectedFile, "data_url");
-        URL = await getDownloadURL(ref(storage, `profilePics/${authUser.uid}`));
+        profilePicURL = await getDownloadURL(storageRef);
       }
 
       const updatedUser = {
@@ -34,7 +35,7 @@ const useEditProfile = () => {
         fullName: inputs.fullName || authUser.fullName,
         username: inputs.username || authUser.username,
         bio: inputs.bio || authUser.bio,
-        profilePicURL: URL || authUser.profilePicURL,
+        profilePicURL,
       };
 
       await updateDoc(userDocRef, updatedUser);
@@ -44,6 +45,8 @@ const useEditProfile = () => {
       showToast("Success", "Profile updated successfully", "success");
     } catch (error) {
       showToast("Error", error.message, "error");
+    } finally {
+      setIsUpdating(false);
     }
   };
 
