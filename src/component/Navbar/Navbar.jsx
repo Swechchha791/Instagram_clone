@@ -1,4 +1,4 @@
-import { Button, Container, Flex, Image } from "@chakra-ui/react";
+import { Button, Container, Flex, Image, Box } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
@@ -9,12 +9,23 @@ const Navbar = () => {
         justifyContent={{ base: "center", sm: "space-between" }}
         alignItems={"center"}
       >
-        <Image
+        {/* <Image
           src="/logo.png"
           h={20}
           display={{ base: "none", sm: "block" }}
           cursor={"pointer"}
-        />
+        /> */}
+        <Box
+          pl={2}
+          fontSize={30}
+          fontWeight="bold"
+          fontFamily="'Poppins', sans-serif"
+          bgGradient="linear(to-br, #6e7cf2, #b184f2, #f268a3, #ffb77a, #fff2a5)"
+          bgClip="text"
+          display={{ base: "none", sm: "block" }}
+        >
+          Social-hub
+        </Box>
         <Flex gap={4}>
           <Link to="/auth">
             <Button colorScheme={"blue"} size={"sm"}>

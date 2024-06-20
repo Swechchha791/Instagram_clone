@@ -11,7 +11,17 @@ const AuthForm = () => {
     <>
       <Box border={"1px solid gray"} borderRadius={8} py={5} px={10} mt={2}>
         <VStack spacing={4}>
-          <Image src="/logo.png" h={24} cursor={"pointer"} alt="Instagram" />
+          {/* <Image src="/logo.png" h={24} cursor={"pointer"} alt="Instagram" /> */}
+          <Box
+            pl={2}
+            fontSize={35}
+            fontWeight="bold"
+            fontFamily="'Poppins', sans-serif"
+            bgGradient="linear(to-br, #6e7cf2, #b184f2, #f268a3, #ffb77a, #fff2a5)"
+            bgClip="text"
+          >
+            Social-hub
+          </Box>
 
           {isLogin ? <Login /> : <Signup />}
 

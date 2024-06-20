@@ -1,11 +1,16 @@
 import { Box, Flex, Link, Button } from "@chakra-ui/react";
-import { InstagramLogo } from "../../assets/constants";
-import { InstagramMobileLogo } from "../../assets/constants";
+// import { InstagramLogo } from "../../assets/constants";
+import { InstagramLogo, InstagramMobileLogo } from "../../assets/constants";
 import { Link as RouterLink } from "react-router-dom";
 import { Tooltip } from "@chakra-ui/react";
 import { BiLogOut } from "react-icons/bi";
 import useLogout from "../../hooks/useLogout";
 import SidebarItems from "./SidebarItems";
+// import CreatePost from "./CreatePost";
+// import Search from "./Search";
+// import Notifications from "./Notifications";
+// import ProfileLink from "./ProfileLink";
+// import Home from "./Home";
 
 const SideBar = () => {
   const { logoutUser, isLoggingOut } = useLogout();
@@ -51,9 +56,18 @@ const SideBar = () => {
           as={RouterLink}
           pl={2}
           display={{ base: "none", md: "block" }}
+          fontSize={25}
+          fontWeight="bold"
+          fontFamily="'Poppins', sans-serif"
+          bgClip="text"
+          bgGradient="linear(to-br, #6e7cf2, #b184f2, #f268a3, #ffb77a, #fff2a5)"
+          _hover={{ textDecoration: "none" }} // Remove underline on hover
         >
-          <InstagramLogo />
+          Social-hub
         </Link>
+
+        {/* <InstagramLogo /> */}
+
         <Link
           to={"/"}
           as={RouterLink}
@@ -69,8 +83,14 @@ const SideBar = () => {
         >
           <InstagramMobileLogo />
         </Link>
-        <Flex direction={"column"} gap={5} cursor={"pointer"}>
+
+        <Flex direction={"column"} gap={5}>
           <SidebarItems />
+          {/* <Home />
+          <Search />
+          <CreatePost />
+          <Notifications />
+          <ProfileLink /> */}
         </Flex>
 
         {/* Logout */}

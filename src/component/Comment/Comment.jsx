@@ -8,7 +8,7 @@ const Comment = ({ comment }) => {
 
   if (isLoading) return <CommentSkeleton />;
   return (
-    <Flex gap={4} alignItems="center" justifyContent="center">
+    <Flex gap={4} alignItems="center">
       <Link to={`/${userProfile.username}`}>
         <Avatar src={userProfile.profilePicURL} size={"sm"} />
       </Link>
@@ -19,11 +19,11 @@ const Comment = ({ comment }) => {
               {userProfile.username}
             </Text>
           </Link>
-          <Text fontSize={14}>{comment.comment}</Text>
+          <Text fontSize={12} color={"gray"}>
+            {timeAgo(comment.createdAt)}
+          </Text>
         </Flex>
-        <Text fontSize={12} color={"gray"}>
-          {timeAgo(comment.createdAt)}
-        </Text>
+        <Text fontSize={14}>{comment.comment}</Text>
       </Flex>
     </Flex>
   );

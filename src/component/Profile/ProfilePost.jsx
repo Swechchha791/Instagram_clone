@@ -183,17 +183,19 @@ const ProfilePost = ({ post }) => {
                       {userProfile.username}
                     </Text>
                   </Flex>
-                  <Button
-                    size={"sm"}
-                    bg={"transparent"}
-                    _hover={{ bg: "whiteAlpha.300", color: "red.600" }}
-                    borderRadius={4}
-                    p={1}
-                    onClick={handleDeletePost}
-                    isLoading={isDeleting}
-                  >
-                    <MdDelete size={20} cursor="pointer" />
-                  </Button>
+                  {authUser?.uid === userProfile.uid && ( // delete button will show only on author's post
+                    <Button
+                      size={"sm"}
+                      bg={"transparent"}
+                      _hover={{ bg: "whiteAlpha.300", color: "red.600" }}
+                      borderRadius={4}
+                      p={1}
+                      onClick={handleDeletePost}
+                      isLoading={isDeleting}
+                    >
+                      <MdDelete size={20} cursor="pointer" />
+                    </Button>
+                  )}
                 </Flex>
                 <Divider my={4} bg={"gray.500"} />
 

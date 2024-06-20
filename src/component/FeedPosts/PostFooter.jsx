@@ -105,7 +105,7 @@ const PostFooter = ({ isProfilePage, post, creatorProfile }) => {
           <InputGroup>
             <Input
               variant={"flushed"}
-              color={"gray"}
+              color={"white"}
               placeholder={"Add a Comment..."}
               fontSize={14}
               value={comment}

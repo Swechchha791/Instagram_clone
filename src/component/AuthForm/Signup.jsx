@@ -28,6 +28,9 @@ const Signup = () => {
         fontSize={14}
         type="email"
         size={"sm"}
+        _placeholder={{ color: "gray.400" }}
+        border="1px solid"
+        borderColor="gray.300"
         value={inputs.email}
         onChange={(e) => setInputs({ ...inputs, email: e.target.value })}
       />
@@ -36,6 +39,9 @@ const Signup = () => {
         fontSize={14}
         type="text"
         size={"sm"}
+        _placeholder={{ color: "gray.400" }}
+        border="1px solid"
+        borderColor="gray.300"
         value={inputs.username}
         onChange={(e) => setInputs({ ...inputs, username: e.target.value })}
       />
@@ -44,6 +50,9 @@ const Signup = () => {
         fontSize={14}
         type="text"
         size={"sm"}
+        _placeholder={{ color: "gray.400" }}
+        border="1px solid"
+        borderColor="gray.300"
         value={inputs.fullName}
         onChange={(e) => setInputs({ ...inputs, fullName: e.target.value })}
       />
@@ -54,6 +63,9 @@ const Signup = () => {
           type={showPassword ? "text" : "password"}
           value={inputs.password}
           size={"sm"}
+          _placeholder={{ color: "gray.400" }}
+          border="1px solid"
+          borderColor="gray.300"
           onChange={(e) => setInputs({ ...inputs, password: e.target.value })}
         />
         <InputRightElement h="full">

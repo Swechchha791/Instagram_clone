@@ -27,6 +27,8 @@ const Search = () => {
   const handleSearchUser = (e) => {
     e.preventDefault();
     getUserProfile(searchRef.current.value);
+    // Reset the form input field after search
+    e.target.reset();
   };
 
   // console.log(user);

@@ -7,7 +7,7 @@ const Caption = ({ post }) => {
   const userProfile = useUserProfileStore((state) => state.userProfile);
 
   return (
-    <Flex gap={4} alignItems="center" justifyContent="center">
+    <Flex gap={4} alignItems="center">
       <Link to={`/${userProfile.username}`}>
         <Avatar src={userProfile.profilePicURL} size={"sm"} />
       </Link>
@@ -18,17 +18,18 @@ const Caption = ({ post }) => {
               {userProfile.username}
             </Text>
           </Link>
-          <Text
-            fontSize={14}
-            whiteSpace="pre-wrap" // Preserve whitespace and line breaks
-            overflowWrap="break-word" // Break long words
-            wordBreak="break-word" // Break long words
-          >
-            {post.caption}
+          <Text fontSize={12} color={"gray"}>
+            {timeAgo(post.createdAt)}
           </Text>
         </Flex>
-        <Text fontSize={12} color={"gray"}>
-          {timeAgo(post.createdAt)}
+        <Text
+          fontSize={14}
+          whiteSpace="pre-wrap" // Preserve whitespace and line breaks
+          overflowWrap="break-word" // Break long words
+          wordBreak="break-word" // Break long words
+          color="white"
+        >
+          {post.caption}
         </Text>
       </Flex>
     </Flex>
