@@ -17,11 +17,13 @@ const CommentsModal = ({ isOpen, onClose, post }) => {
   const { handlePostComment, isCommenting } = usePostComment();
   const commentRef = useRef(null);
   const commentsContainerRef = useRef(null);
+
   const handleSubmitComment = async (e) => {
-    // do not refresh the page, prevent it
     e.preventDefault();
-    await handlePostComment(post.id, commentRef.current.value);
-    commentRef.current.value = "";
+    const commentText = commentRef.current.value.trim();
+    if (commentText === "") return; // Prevent empty comments
+    await handlePostComment(post.id, commentText);
+    commentRef.current.value = ""; // Reset input field after comment is posted
   };
 
   useEffect(() => {
@@ -61,7 +63,7 @@ const CommentsModal = ({ isOpen, onClose, post }) => {
           </Flex>
           <form onSubmit={handleSubmitComment} style={{ marginTop: "2rem" }}>
             <Input
-              placeholder="Comment"
+              placeholder="Add a comment..."
               size={"sm"}
               ref={commentRef}
               color="white"
@@ -73,6 +75,7 @@ const CommentsModal = ({ isOpen, onClose, post }) => {
                 size={"sm"}
                 my={4}
                 isLoading={isCommenting}
+                disabled={isCommenting} // Prevent multiple submissions
               >
                 Post
               </Button>

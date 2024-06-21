@@ -18,7 +18,7 @@ const SuggestedHeader = () => {
         <Link to={`${authUser.username}`}>
           <Avatar
             name={authUser.username || ""}
-            size={"lg"}
+            size={"md"}
             src={authUser.profilePicURL || ""}
           />
         </Link>

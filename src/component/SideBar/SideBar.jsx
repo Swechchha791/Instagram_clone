@@ -56,7 +56,7 @@ const SideBar = () => {
           as={RouterLink}
           pl={2}
           display={{ base: "none", md: "block" }}
-          fontSize={25}
+          fontSize={30}
           fontWeight="bold"
           fontFamily="'Poppins', sans-serif"
           bgClip="text"
