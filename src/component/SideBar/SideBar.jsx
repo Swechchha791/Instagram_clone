@@ -58,7 +58,7 @@ const SideBar = () => {
           display={{ base: "none", md: "block" }}
           fontSize={30}
           fontWeight="bold"
-          fontFamily="'Poppins', sans-serif"
+          fontFamily="'Playfair Display', serif"
           bgClip="text"
           bgGradient="linear(to-br, #6e7cf2, #b184f2, #f268a3, #ffb77a, #fff2a5)"
           _hover={{ textDecoration: "none" }} // Remove underline on hover
