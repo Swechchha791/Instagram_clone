@@ -14,7 +14,7 @@ const useShowToast = () => {
         duration: 3000,
         isClosable: true,
         variant: "top-accent",
-        position: "bottom-right",
+        position: "top",
       });
     },
     [toast]
